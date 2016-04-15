@@ -6,6 +6,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'factory_girl_rails'
+require "cancan/matchers"
+
 Dir[Rails.root.join("spec/support/*.rb")].each {|f| require f}
 
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -58,4 +60,6 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include Requests::JsonHelpers, type: :request
+  config.include Devise::TestHelpers, type: :controller
+  config.include FactoryGirl::Syntax::Methods
 end

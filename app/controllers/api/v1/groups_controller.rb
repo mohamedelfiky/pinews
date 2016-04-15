@@ -1,5 +1,7 @@
-class Api::V1::GroupsController < Api::ApplicationController
+class Api::V1::GroupsController < ApplicationController
   before_action :set_group, only: [:show, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
+  load_and_authorize_resource
 
   # GET /groups
   # GET /groups.json

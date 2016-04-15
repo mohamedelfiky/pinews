@@ -5,14 +5,23 @@ gem 'rails', '4.2.5'
 
 gem 'rails-api'
 
-gem 'spring', :group => :development
 
+group :development do
+  gem 'guard'
+  gem 'guard-rspec', require: false
+  gem 'spring'
+end
 
 gem 'mysql2'
+gem 'devise'
+gem 'devise_token_auth'
+gem 'omniauth'
+gem 'cancancan', '~> 1.10'
 
 group :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails' , :require => false
+  gem 'factory_girl_rails', :require => false
+  gem 'faker'
 end
 
 

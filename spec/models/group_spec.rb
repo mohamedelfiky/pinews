@@ -1,15 +1,15 @@
 require 'rails_helper'
 RSpec.describe Group, type: :model do
-  before do
-    @group = Group.new(name: "Ben Franklin Labs")
+
+  subject(:group){  FactoryGirl.build :group }
+
+  describe 'when name is not present' do
+    before { group.name = ' ' }
+    it { is_expected.not_to be_valid }
   end
 
-
-  subject { @group }
-
-  describe "when name is not present" do
-    before { @group.name = " " }
-    it { should_not be_valid }
+  describe 'when name is present' do
+    it { is_expected.to be_valid }
   end
 
 end
