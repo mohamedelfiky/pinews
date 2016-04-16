@@ -15,8 +15,8 @@ FactoryGirl.define do
       role_id Role.find_by_name('Admin').id
     end
 
-    trait :normal_user do
-      role_id Role.find_by_name('User').id
+    trait :author do
+      role_id Role.find_by_name('Author').id
     end
 
   end

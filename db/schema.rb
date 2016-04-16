@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415150508) do
+ActiveRecord::Schema.define(version: 20160416105905) do
+
+  create_table "articles", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 65535
+    t.string   "image",       limit: 255
+    t.integer  "author_id",   limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -22,6 +33,16 @@ ActiveRecord::Schema.define(version: 20160415150508) do
 
   add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
   add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
+
+  create_table "photos", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.integer  "article_id", limit: 4
+    t.string   "image",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "photos", ["article_id"], name: "index_photos_on_article_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -59,6 +80,8 @@ ActiveRecord::Schema.define(version: 20160415150508) do
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
+  add_foreign_key "articles", "users", column: "author_id"
   add_foreign_key "groups", "users"
+  add_foreign_key "photos", "articles"
   add_foreign_key "users", "roles"
 end

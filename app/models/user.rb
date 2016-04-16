@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
     self.role.name == 'Admin' if self.role
   end
 
-  def normal_user?
-    self.role.name == 'User' if self.role
+  def author?
+    self.role.name == 'Author' if self.role
   end
 end

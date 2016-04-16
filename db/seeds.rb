@@ -7,4 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Role.find_or_create_by({name: 'Admin'})
-Role.find_or_create_by({name: 'User'})
+Role.find_or_create_by({name: 'Author'})
