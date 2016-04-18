@@ -1,5 +1,4 @@
-
-<form ng-submit="submitLogin(loginForm)" role="form" ng-init="loginForm = {}">
+<form ng-submit="loginForm.handleLoginBtnClick()" role="form">
   <div class="form-group">
     <label for="email">Email</label>
     <input type="email"
@@ -9,7 +8,6 @@
            required="required"
            class="form-control">
   </div>
-
   <div class="form-group">
     <label for="password">Password</label>
     <input type="password"

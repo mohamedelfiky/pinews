@@ -1,27 +1,25 @@
-'use strict';
+(function () {
+  'use strict';
 
-/**
- * @ngdoc function
- * @name pinewsApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the pinewsApp
- */
-angular.module('pinewsApp')
-  .controller('MainCtrl', mainController);
+  /**
+   * @ngdoc function
+   * @name pinewsApp.controller:MainCtrl
+   * @description
+   * # MainCtrl
+   * Controller of the pinewsApp
+   */
+  angular.module('pinewsApp')
+    .controller('MainCtrl', mainController);
 
-mainController.$inject = ["article"];
+  mainController.$inject = ["article", "exception", "logger"];
 
-function mainController(article) {
-  this.awesomeThings = [
-    'HTML5 Boilerplate',
-    'AngularJS',
-    'Karma'
-  ];
+  function mainController(article, exception, logger) {
 
-  article.query(function(articles) {
-    console.log(articles);
-  });
+    article.query(function (articles) {
+      logger.success(articles);
+    });
+
+  }
 
 
-}
+}());

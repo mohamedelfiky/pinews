@@ -22,7 +22,7 @@ angular
   ])
   .config(function($authProvider) {
     $authProvider.configure({
-      apiUrl: 'http://localhost:3000'
+      apiUrl: 'http://localhost:9000/api/v1'
     });
   })
   .config(function ($routeProvider) {
@@ -36,6 +36,11 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
+      })
+      .when('/sign_in', {
+        templateUrl: 'views/user_sessions/new.html',
+        controller: 'UserSessionsCtrl',
+        controllerAs: 'loginForm'
       })
       .otherwise({
         redirectTo: '/'
