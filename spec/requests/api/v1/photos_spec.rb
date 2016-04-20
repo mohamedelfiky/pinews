@@ -61,6 +61,7 @@ describe 'photos API' do
     # test for the 204 status-code
     expect(response.status).to eql(204)
 
+
     # ensure that private attributes aren't serialized
     expect(Photo.find_by_id(photo.id)).to eq(nil)
   end

@@ -26,6 +26,12 @@ group :test do
   gem 'factory_girl_rails', :require => false
 end
 
+
+group :test, :development do
+  gem 'spring'
+  gem 'byebug'
+end
+
 gem 'faker'
 gem 'jbuilder'
 gem 'will_paginate', '~> 3.0.6'

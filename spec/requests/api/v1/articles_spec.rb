@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'rack/test'
+
 
 describe 'Articles API' do
   let(:user) { create(:user, :admin) }
@@ -40,10 +42,10 @@ describe 'Articles API' do
 
 
 
-  it 'should a edit article' do
+  it 'should a edit article', focus: true do
     article.title = 'el fiky'
 
-    put "/api/v1/articles/#{article.id}", { article: article.as_json }, user_header
+    put "/api/v1/articles/#{article.id}", { article: article.attributes.except(:image) }, user_header
 
     # test for the 204 status-code
     expect(response.status).to eql(204)
