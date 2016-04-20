@@ -57,7 +57,6 @@ class Api::V1::ArticlesController < ApplicationController
   private
 
   def set_article
-    puts request.headers.inspect
     @article = Article.find(params[:id])
   end
 

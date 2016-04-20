@@ -18,6 +18,8 @@ gem 'devise'
 gem 'devise_token_auth'
 gem 'omniauth'
 gem 'cancancan', '~> 1.10'
+gem "paperclip", "~> 5.0.0.beta1"
+
 
 group :test do
   gem 'rspec-rails'

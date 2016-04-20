@@ -13,8 +13,8 @@ describe 'Articles API' do
     # test for the 200 status-code
     expect(response).to be_success
 
-    # check to make sure the right amount of messages are returned
-    expect(json.count).to eq(10)
+    # article page size =5
+    expect(json.count).to eq(5)
   end
 
   it 'retrieves a specific article' do
@@ -23,7 +23,7 @@ describe 'Articles API' do
     # test for the 200 status-code
     expect(response).to be_success
 
-    # check that the message attributes are the same.
+    # check that the article attributes are the same.
     expect(json['title']).to eq(article.title)
   end
 
@@ -34,7 +34,7 @@ describe 'Articles API' do
     # test for the 200 status-code
     expect(response).to be_success
 
-    # check that the message attributes are the same.
+    # check that the article attributes are the same.
     expect(json['title']).to eq(article[:title])
   end
 
@@ -48,7 +48,6 @@ describe 'Articles API' do
     # test for the 204 status-code
     expect(response.status).to eql(204)
 
-    # ensure that private attributes aren't serialized
     expect(Article.find(article.id).title).to eq(article.title)
   end
 
@@ -59,7 +58,6 @@ describe 'Articles API' do
     # test for the 204 status-code
     expect(response.status).to eql(204)
 
-    # ensure that private attributes aren't serialized
     expect(Article.find_by_id(article.id)).to eq(nil)
   end
 end
