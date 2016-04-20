@@ -11,14 +11,14 @@
   angular.module('pinewsApp')
     .controller('MainCtrl', mainController);
 
-  mainController.$inject = ["article", "exception", "logger"];
+  mainController.$inject = ["article", "logger"];
 
-  function mainController(article, exception, logger) {
-
+  function mainController(article, logger) {
+    var vm = this;
     article.query(function (articles) {
-      logger.success(articles);
+      vm.articles = articles;
+      logger.success(articles.length + " Articles");
     });
-
   }
 
 

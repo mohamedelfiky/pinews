@@ -10,6 +10,7 @@ group :development do
   gem 'guard'
   gem 'guard-rspec', require: false
   gem 'spring'
+  gem 'byebug'
 end
 
 gem 'mysql2'
@@ -24,7 +25,9 @@ group :test do
 end
 
 gem 'faker'
-
+gem 'jbuilder'
+gem 'will_paginate', '~> 3.0.6'
+gem 'rack-cors', :require => 'rack/cors'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

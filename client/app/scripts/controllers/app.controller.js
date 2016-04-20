@@ -6,17 +6,17 @@
 
   /**
    * @ngdoc function
-   * @name fakeLunchHubApp.controller:UserSessionsCtrl
+   * @name pinewsApp.controller:AppCtrl
    * @description
-   * # UserSessionsCtrl
-   * Controller of the fakeLunchHubApp
+   * # AppCtrl
+   * Controller of the pinewsApp
    */
   angular.module('pinewsApp')
-    .controller('UserSessionsCtrl', userSessionsCtrl);
+    .controller('AppCtrl', appCtrl);
 
 
-  userSessionsCtrl.$inject = ['$auth', 'logger', '$scope', "$state"];
-  function userSessionsCtrl($auth, logger, $scope, $state) {
+  appCtrl.$inject = ['$auth', 'logger', '$scope', "$state"];
+  function appCtrl($auth, logger, $scope, $state) {
     var session = this;
 
     $scope.$on('auth:login-success', function (e) {
@@ -36,6 +36,15 @@
       logger.error('registration failure');
     });
 
+    $scope.$on('auth:logout-success', function (ev) {
+      logger.success('logout-success');
+      $state.go('home');
+    });
+
+    $scope.$on('auth:logout-error', function (ev) {
+      logger.error('session expired');
+      $state.go('sign_in')
+    });
 
     $scope.$on('auth:session-expired', function (ev) {
       logger.error(JSON.stringify(ev));

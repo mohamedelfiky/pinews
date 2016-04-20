@@ -1,12 +1,13 @@
 class Api::V1::ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  set_pagination_headers :articles, only: [:index]
   load_and_authorize_resource
 
   # GET /api/v1/articles
   # GET /api/v1/articles.json
   def index
-    @articles = Article.all
+    @articles = Article.paginate(:page => params[:page])
 
     render json: @articles
   end
@@ -14,7 +15,11 @@ class Api::V1::ArticlesController < ApplicationController
   # GET /api/v1/articles/1
   # GET /api/v1/articles/1.json
   def show
-    render json: @article
+
+    render json: @article.attributes.merge({
+                                               author: @article.author.attributes.slice('name', 'email'),
+                                               role: @article.author.role.name
+                                           })
   end
 
   # POST /api/v1/articles
@@ -51,11 +56,12 @@ class Api::V1::ArticlesController < ApplicationController
 
   private
 
-    def set_article
-      @article = Article.find(params[:id])
-    end
+  def set_article
+    puts request.headers.inspect
+    @article = Article.find(params[:id])
+  end
 
-    def article_params
-      params.require(:article).permit(:title, :description, :image)
-    end
+  def article_params
+    params.require(:article).permit(:title, :description, :image)
+  end
 end

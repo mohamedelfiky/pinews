@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  # :confirmable, :lockable, :database_authenticatable, :timeoutable and :omniauthable
+  devise :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :role
+  before_create :set_role
 
   def admin?
     self.role.name == 'Admin' if self.role
@@ -13,5 +13,9 @@ class User < ActiveRecord::Base
 
   def author?
     self.role.name == 'Author' if self.role
+  end
+
+  def set_role
+    self.role = Role.find_by_name('Author') unless self.role
   end
 end

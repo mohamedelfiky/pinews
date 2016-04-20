@@ -13,6 +13,7 @@ unless admin
                      confirmed_at: Date.today
                  })
   admin.save!
+  admin.create_new_auth_token
 end
 
 

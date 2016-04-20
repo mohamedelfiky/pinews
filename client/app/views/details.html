@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col s12">
+    <h2 class="header">{{details.article.title}}</h2>
+    <ul class="collection">
+      <li class="collection-item avatar">
+        <i class="material-icons circle red">play_arrow</i>
+        <span class="title">Author: {{details.article.author.name}}</span>
+        <p>
+          Role: {{details.article.role}}<br>
+          mail: {{details.article.author.email}}
+        </p>
+        <p class="secondary-content">
+          {{details.article.created_at | date:'medium'}}
+        </p>
+      </li>
+    </ul>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col s12 m8">
+    <div class="card large">
+      <div class="card-image">
+        <img ng-src="{{details.article.image}}">
+      </div>
+      <div class="card-content">
+        <p>{{details.article.description}}</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+

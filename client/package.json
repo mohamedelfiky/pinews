@@ -43,6 +43,7 @@
     "test": "karma start test/karma.conf.js"
   },
   "dependencies": {
+    "angular-ui-router": "^0.2.18",
     "load-grunt-tasks": "^3.5.0"
   }
 }
