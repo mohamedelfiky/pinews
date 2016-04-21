@@ -13,5 +13,5 @@
 /tmp
 /config/local_database.yml
 .idea/
-/public/system
+/public/assets
 .byebug_history

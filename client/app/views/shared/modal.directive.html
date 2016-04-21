@@ -1,8 +1,14 @@
-<div id="{{modalId}}" class="modal">
+<div id="{{modalId}}" class="modal" ng-class="(templateUrl)? 'modal-fixed-footer' : ''">
   <div class="modal-content">
-    <h4>Delete</h4>
-    <p>Are you sure to delete {{article.title}}??</p>
+    <h4>{{title}}</h4>
+
+    <p ng-if="template">{{template}}</p>
+
+    <p ng-if="templateUrl">
+      <div ng-include="templateUrl"></div>
+    </p>
   </div>
+
   <div class="modal-footer">
     <a ng-click="closeModal(true)" class="modal-action modal-close waves-effect waves-green btn-flat">ok</a>
     <a ng-click="closeModal()" class="modal-action modal-close waves-effect waves-green btn-flat">cancel</a>

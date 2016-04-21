@@ -22,11 +22,13 @@
       'ngTouch',
       'ng-token-auth',
       'ui.materialize',
+      'ngFileUpload',
       'ui.router'
     ])
     .config(function ($authProvider, $httpProvider) {
       $authProvider.configure({
-        apiUrl: 'http://localhost:9000/api/v1'
+        apiUrl: 'http://localhost:9000/api/v1',
+        validateOnPageLoad: true
       });
 
       $httpProvider.interceptors.push(function ($injector) {

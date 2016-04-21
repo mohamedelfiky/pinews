@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="row">
+  <form class="col s12" name="form">
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="title" type="text" class="validate" ng-model="article.title">
+        <label for="title">Title</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="description" class="materialize-textarea" ng-model="article.description"></textarea>
+        <label for="description">Description</label>
+      </div>
+    </div>
 
-</body>
-</html>
+    <input id="file-input" type="file" ngf-select="selectFile($file)"
+           ng-model="image" ngf-pattern="'image/*'" accept="image/*"
+           ngf-max-size="6MB">
+
+  </form>
+</div>

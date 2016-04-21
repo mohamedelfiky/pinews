@@ -8,19 +8,8 @@ class Api::V1::ArticlesController < ApplicationController
   # GET /api/v1/articles.json
   def index
     @articles = Article.paginate(:page => params[:page])
-
-    render json: @articles
   end
 
-  # GET /api/v1/articles/1
-  # GET /api/v1/articles/1.json
-  def show
-
-    render json: @article.attributes.merge({
-                                               author: @article.author.attributes.slice('name', 'email'),
-                                               role: @article.author.role.name
-                                           })
-  end
 
   # POST /api/v1/articles
   # POST /api/v1/articles.json

@@ -9,22 +9,32 @@
    */
   angular.module('pinewsApp')
     .directive('pinModal', pinModal);
-  pinModal.$inject = ["article", "logger", "$rootScope"];
-  function pinModal( Article, logger, $rootScope) {
+  pinModal.$inject = ["article", "Upload", "$rootScope"];
+  function pinModal(Article, Upload, $rootScope) {
     return {
       templateUrl: 'views/shared/modal.directive.html',
       restrict: 'E',
       scope: {
         article: '=',
-        modalId: '@'
+        modalId: '@',
+        title: '=',
+        broadcast: '@',
+        template: '=',
+        templateUrl: '@'
       },
       link: function postLink(scope, element, attrs) {
+        $(document).on('click', '.lean-overlay', function () {
+          $('.lean-overlay').remove();
+        });
+
+        scope.selectFile = function (f) {
+          scope.article.image = f;
+        };
+
+
         scope.closeModal = function (success) {
           if (success) {
-            Article.delete({id: scope.article.id}, function (article) {
-              logger.success('Article deleted');
-              $rootScope.$broadcast("reload_articles");
-            });
+            $rootScope.$broadcast(scope.broadcast, {article: scope.article});
           }
           $('#' + scope.modalId).closeModal();
           $('.lean-overlay').remove();
