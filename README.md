@@ -1,4 +1,5 @@
-# Pinews (Currently in Development )
+# Pinews 
+###### (Currently in Development )
 PiNews small app for users to pin his favorite news and share it to social media.
 
 ### Todos
