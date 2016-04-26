@@ -17,7 +17,5 @@ describe('Controller: AdminDashCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(AdminDashCtrl.awesomeThings.length).toBe(3);
-  });
+
 });

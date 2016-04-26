@@ -37,10 +37,11 @@
             if (config.url.indexOf('/api/v1/articles') >= 0) {
               $injector.invoke(['$auth', function ($auth) {
                 var headers = $auth.retrieveData('auth_headers');
-                if (headers)
+                if (headers) {
                   for (var key in headers) {
                     config.headers[key] = headers[key];
                   }
+                }
               }]);
             }
             return config;

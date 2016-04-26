@@ -6,10 +6,10 @@
 
   angular.module('pinewsApp').config(routesConfig);
 
-  routesConfig.$inject = ["$stateProvider", "$urlRouterProvider"];
+  routesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 
   function routesConfig($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
       .state('home', {

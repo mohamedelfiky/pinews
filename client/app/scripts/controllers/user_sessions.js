@@ -15,24 +15,23 @@
     .controller('UserSessionsCtrl', userSessionsCtrl);
 
 
-  userSessionsCtrl.$inject = ['$auth', 'logger', '$scope', "$state"];
+  userSessionsCtrl.$inject = ['$auth', 'logger', '$scope', '$state'];
   function userSessionsCtrl($auth, logger, $scope, $state) {
-    var session = this;
 
-    $scope.$on('auth:login-success', function (e) {
+    $scope.$on('auth:login-success', function () {
       logger.success('success login');
       $state.go('admin.dashboard');
     });
 
-    $scope.$on('auth:login-error', function (e) {
+    $scope.$on('auth:login-error', function () {
       logger.error('login failure');
     });
 
-    $scope.$on('auth:registration-email-success', function (e) {
+    $scope.$on('auth:registration-email-success', function () {
       logger.success('registration success');
     });
 
-    $scope.$on('auth:registration-email-error', function (e) {
+    $scope.$on('auth:registration-email-error', function () {
       logger.error('registration failure');
     });
 
@@ -42,7 +41,7 @@
     });
 
     $scope.$on('auth:email-confirmation-success', function (ev, user) {
-      alert("Welcome, " + user.email + ". Your account has been verified.");
+      logger.info('Welcome, ' + user.email + '. Your account has been verified.');
     });
   }
 }());

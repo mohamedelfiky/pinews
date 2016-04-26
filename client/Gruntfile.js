@@ -144,6 +144,7 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
+        latedef: false,
         reporter: require('jshint-stylish')
       },
       all: {
@@ -154,7 +155,8 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
-          jshintrc: 'test/.jshintrc'
+          jshintrc: 'test/.jshintrc',
+          latedef: false
         },
         src: ['test/spec/{,*/}*.js']
       }

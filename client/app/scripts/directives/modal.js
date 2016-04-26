@@ -9,8 +9,11 @@
    */
   angular.module('pinewsApp')
     .directive('pinModal', pinModal);
-  pinModal.$inject = ["article", "Upload", "$rootScope"];
-  function pinModal(Article, Upload, $rootScope) {
+
+
+  pinModal.$inject = ['$rootScope'];
+
+  function pinModal($rootScope) {
     return {
       templateUrl: 'views/shared/modal.directive.html',
       restrict: 'E',
@@ -22,7 +25,7 @@
         template: '=',
         templateUrl: '@'
       },
-      link: function postLink(scope, element, attrs) {
+      link: function postLink(scope) {
         $(document).on('click', '.lean-overlay', function () {
           $('.lean-overlay').remove();
         });

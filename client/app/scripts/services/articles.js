@@ -11,8 +11,8 @@
   angular.module('pinewsApp')
     .factory('article', articleService);
 
-  articleService.$inject = ['$resource', '$http'];
-  function articleService($resource, $http) {
+  articleService.$inject = ['$resource'];
+  function articleService($resource) {
     return $resource('/api/v1/articles/:id');
   }
 }());
