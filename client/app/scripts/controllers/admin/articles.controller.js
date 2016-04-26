@@ -59,27 +59,50 @@
       });
     }
 
-
     $scope.$on("update-article", function (event, args) {
-      vm.upload(
-        args.article,
-        {method: 'PUT', url: '/api/v1/articles/' + args.article.id + '.json'},
-        function () {
-          logger.success("Article Created");
-          reloadCurrentPage();
-        }
-      );
+      if (args.article.image && args.article.image.substring(0, 7) != 'http://') {
+        vm.upload(
+          args.article,
+          {method: 'PUT', url: '/api/v1/articles/' + args.article.id + '.json'},
+          function () {
+            logger.success("Article Created");
+            reloadCurrentPage();
+          }
+        );
+      } else {
+
+        Article.update({
+            id: args.article.id
+          },
+          {
+            article: {
+              title: args.article.title,
+              description: args.article.description
+            }
+          },
+          function () {
+            logger.success("Article updated");
+            reloadCurrentPage();
+          });
+      }
     });
 
     $scope.$on("create-article", function (event, args) {
-      vm.upload(
-        args.article,
-        {method: 'POST', url: '/api/v1/articles.json'},
-        function () {
+      if (args.article.image) {
+        vm.upload(
+          args.article,
+          {method: 'POST', url: '/api/v1/articles.json'},
+          function () {
+            logger.success("Article Created");
+            reloadCurrentPage();
+          }
+        );
+      } else {
+        Article.save({article: args.article}, function (article) {
           logger.success("Article Created");
           reloadCurrentPage();
-        }
-      );
+        });
+      }
     });
 
 

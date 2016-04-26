@@ -13,6 +13,9 @@
 
   articleService.$inject = ['$resource'];
   function articleService($resource) {
-    return $resource('/api/v1/articles/:id');
+    return $resource('/api/v1/articles/:id', null,
+      {
+        'update': { method:'PUT' }
+      });
   }
 }());
