@@ -1,6 +1,6 @@
 class Api::V1::PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_current_user, except: [:index, :show]
   load_and_authorize_resource :article
   load_and_authorize_resource :through => :article
 
