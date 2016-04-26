@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: articles', function () {
+describe('Service: Article', function () {
 
   // load the service's module
   beforeEach(module('pinewsApp'));
 
   // instantiate service
   var articles;
-  beforeEach(inject(function (_articles_) {
-    articles = _articles_;
+  beforeEach(inject(function (_article_) {
+    articles = _article_;
   }));
 
-  //it('should do something', function () {
-  //  expect(!!articles).toBe(true);
-  //});
+  it('should do something', function () {
+    expect(!!articles).toBe(true);
+  });
 
 });
