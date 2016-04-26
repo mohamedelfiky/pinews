@@ -7,7 +7,7 @@ class Api::V1::ArticlesController < ApplicationController
   # GET /api/v1/articles
   # GET /api/v1/articles.json
   def index
-    @articles = Article.paginate(:page => params[:page])
+    @articles = Article.includes(:role).paginate(:page => params[:page])
   end
 
 

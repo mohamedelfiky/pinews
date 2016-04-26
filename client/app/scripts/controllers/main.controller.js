@@ -15,10 +15,14 @@
 
   function mainController(article, logger) {
     var vm = this;  // jshint ignore:line
-    article.query(function (articles) {
-      vm.articles = articles;
-      logger.success(articles.length + ' Articles');
-    });
+
+    vm.loadArticles = function () {
+      article.query(function (articles) {
+        vm.articles = articles;
+        logger.success(articles.length + ' Articles');
+      });
+
+    };
   }
 
 

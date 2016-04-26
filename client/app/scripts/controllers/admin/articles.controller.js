@@ -22,7 +22,6 @@
     vm.articles = [];
     vm.pagenation = false;
     vm.page = 1;
-    loadPage(1);
 
     vm.loadPage = loadPage;
     vm.edit = editArticle;

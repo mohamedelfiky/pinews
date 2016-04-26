@@ -19,10 +19,13 @@
     var vm = this; // jshint ignore:line
 
     vm.article = {};
-    article.get({id: $state.params.id}, function (res) {
-      vm.article = res;
-    });
 
+
+    vm.loadArticle = function () {
+      article.get({id: $state.params.id}, function (res) {
+        vm.article = res;
+      });
+    };
   }
 
 }());

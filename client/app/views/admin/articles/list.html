@@ -1,73 +1,75 @@
-<h2 class="header">Articles</h2>
-<table>
-  <thead>
-  <tr>
-    <th data-field="id">#</th>
-    <th data-field="title">Title</th>
-    <th data-field="image">Image</th>
-    <th data-field="author">Author</th>
-    <th data-field="actions">actions</th>
-  </tr>
-  </thead>
+<div ng-init="vm.loadPage(1)">
+  <h2 class="header">Articles</h2>
+  <table>
+    <thead>
+    <tr>
+      <th data-field="id">#</th>
+      <th data-field="title">Title</th>
+      <th data-field="image">Image</th>
+      <th data-field="author">Author</th>
+      <th data-field="actions">actions</th>
+    </tr>
+    </thead>
 
-  <tbody>
-  <tr ng-repeat="article in vm.articles">
-    <td>{{article.id}}</td>
-    <td>{{article.title}}</td>
-    <td>
-      <img materialboxed class="materialboxed responsive-img" width="100" ng-src="{{article.image}}">
-    </td>
-    <td>{{article.title}}</td>
-    <td>
-      <a class="btn-floating"><i class="material-icons" ng-click="vm.edit(article)">mode_edit</i></a>
-      <a class="btn-floating red" ng-click="vm.openRemovePopup(article)" href="" modal><i
-        class="material-icons">delete</i></a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    <tbody>
+    <tr ng-repeat="article in vm.articles">
+      <td>{{article.id}}</td>
+      <td>{{article.title}}</td>
+      <td>
+        <img materialboxed class="materialboxed responsive-img" width="100" ng-src="{{article.image}}">
+      </td>
+      <td>{{article.title}}</td>
+      <td>
+        <a class="btn-floating"><i class="material-icons" ng-click="vm.edit(article)">mode_edit</i></a>
+        <a class="btn-floating red" ng-click="vm.openRemovePopup(article)" href="" modal><i
+          class="material-icons">delete</i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
-<pagination
-  ng-if="vm.pagenation"
-  page="vm.page"
-  page-size="5"
-  total="vm.pagenation.total"
-  show-prev-next="true"
-  dots="...."
-  hide-if-empty="true"
-  scroll-top="false"
-  pagination-action="vm.loadPage(page)"/>
+  <pagination
+    ng-if="vm.pagenation"
+    page="vm.page"
+    page-size="5"
+    total="vm.pagenation.total"
+    show-prev-next="true"
+    dots="...."
+    hide-if-empty="true"
+    scroll-top="false"
+    pagination-action="vm.loadPage(page)"/>
 
-<pin-modal
-  article="vm.selectedArticle"
-  title="Delete"
-  broadcast="delete-article"
-  template="'Are you sure to delete \'' + vm.selectedArticle.title + '\' ??'"
-  modal-id="deleteModal"
-  ng-if="vm.selectedArticle"/>
+  <pin-modal
+    article="vm.selectedArticle"
+    title="Delete"
+    broadcast="delete-article"
+    template="'Are you sure to delete \'' + vm.selectedArticle.title + '\' ??'"
+    modal-id="deleteModal"
+    ng-if="vm.selectedArticle"/>
 
-<pin-modal
-  article="vm.selectedArticle"
-  title=" 'Edit \'' + vm.selectedArticle.title + '\'' "
-  message="Article Saved"
-  broadcast="update-article"
-  template-url="views/admin/articles/form.html"
-  modal-id="editModal"
-  ng-if="vm.selectedArticle"/>
+  <pin-modal
+    article="vm.selectedArticle"
+    title=" 'Edit \'' + vm.selectedArticle.title + '\'' "
+    message="Article Saved"
+    broadcast="update-article"
+    template-url="views/admin/articles/form.html"
+    modal-id="editModal"
+    ng-if="vm.selectedArticle"/>
 
 
-<pin-modal
-  title="'New Article'"
-  ng-if="vm.selectedArticle"
-  article="vm.selectedArticle"
-  message="Article Saved"
-  broadcast="create-article"
-  template-url="views/admin/articles/form.html"
-  modal-id="newModal"/>
+  <pin-modal
+    title="'New Article'"
+    ng-if="vm.selectedArticle"
+    article="vm.selectedArticle"
+    message="Article Saved"
+    broadcast="create-article"
+    template-url="views/admin/articles/form.html"
+    modal-id="newModal"/>
 
-<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-  <a class="btn-floating btn-large waves-effect waves-light red" ng-click="vm.addNewArticle()">
-    <i class="material-icons">add</i>
-  </a>
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large waves-effect waves-light red" ng-click="vm.addNewArticle()">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
+
 </div>
-
