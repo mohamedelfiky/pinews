@@ -1,15 +1,21 @@
-<div class="row" ng-init="main.loadArticles()">
+<div  ng-init="main.loadArticles(main.page)" >
 
-  <article ng-repeat="article in main.articles" class="grid-element-wrap col s6 m4 l4">
-    <div class="grid-element">
-      <a ui-sref="details({id: article.id, title: article.title})" class="waves-effect">
-        <img ng-src="{{article.image}}" class="grid-element-bg" width="292" height="292" alt="{{article.title}}" data-hdpi="">
-        <h3 class="grid-element-title">{{article.title}}</h3>
-      </a>
-      <div class="btn-floating btn-large main-blue waves-effect waves-light" ng-click="main.pinArticle(article)">
-        <img src="/images/pin.svg">
+  <div class="row" >
+    <article when-visible="" ng-repeat="article in main.articles" class="grid-element-wrap col s6 m4 l4">
+      <div class="grid-element">
+        <a ui-sref="details({id: article.id, title: article.title})" class="waves-effect">
+          <img ng-src="{{article.image}}" class="grid-element-bg" width="292" height="292" alt="{{article.title}}" data-hdpi="">
+          <h3 class="grid-element-title">{{article.title}}</h3>
+        </a>
+        <div class="btn-floating btn-large main-blue waves-effect waves-light" ng-click="main.pinArticle(article)">
+          <img src="/images/pin.svg">
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
+  </div>
 
 </div>
+<div class="row" when-visible="main.showMore()" ng-show="!main.needToLoadMore">
+  <br/>
+</div>
+<h1 id="loader" class="center" ng-show="!main.needToLoadMore && !done"><i class="animated pulse infinite fa fa-heart-o"></i></h1>

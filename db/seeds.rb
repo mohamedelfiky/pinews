@@ -19,7 +19,7 @@ end
 
 puts 'Creating Articles ...'
 Article.destroy_all
-(1..10).each do
+(1..20).each do
   Article.create({
                      title: Faker::Name.title,
                      description: Faker::Hipster.paragraph(2),

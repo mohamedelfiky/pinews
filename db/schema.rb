@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420123354) do
+ActiveRecord::Schema.define(version: 20160506074828) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -28,16 +28,6 @@ ActiveRecord::Schema.define(version: 20160420123354) do
 
   add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
 
-  create_table "groups", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "user_id",    limit: 4
-  end
-
-  add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
-  add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
-
   create_table "photos", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.integer  "article_id", limit: 4
@@ -47,6 +37,16 @@ ActiveRecord::Schema.define(version: 20160420123354) do
   end
 
   add_index "photos", ["article_id"], name: "index_photos_on_article_id", using: :btree
+
+  create_table "pins", force: :cascade do |t|
+    t.integer  "article_id", limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "pins", ["article_id"], name: "index_pins_on_article_id", using: :btree
+  add_index "pins", ["user_id"], name: "index_pins_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -79,13 +79,14 @@ ActiveRecord::Schema.define(version: 20160420123354) do
     t.integer  "role_id",                limit: 4
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   add_foreign_key "articles", "users", column: "author_id"
-  add_foreign_key "groups", "users"
   add_foreign_key "photos", "articles"
+  add_foreign_key "pins", "articles"
+  add_foreign_key "pins", "users"
   add_foreign_key "users", "roles"
 end

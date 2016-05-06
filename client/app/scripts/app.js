@@ -23,7 +23,8 @@
       'ng-token-auth',
       'ui.materialize',
       'ngFileUpload',
-      'ui.router'
+      'ui.router',
+      'infinite-scroll'
     ])
     .config(function ($authProvider) {
       $authProvider.configure({
