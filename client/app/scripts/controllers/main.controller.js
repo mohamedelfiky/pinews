@@ -11,18 +11,21 @@
   angular.module('pinewsApp')
     .controller('MainCtrl', mainController);
 
-  mainController.$inject = ['article', 'logger'];
+  mainController.$inject = ['Article', 'logger'];
 
-  function mainController(article, logger) {
+  function mainController(Article, logger) {
     var vm = this;  // jshint ignore:line
 
     vm.loadArticles = function () {
-      article.query(function (articles) {
+      Article.query(function (articles) {
         vm.articles = articles;
-        logger.success(articles.length + ' Articles');
       });
-
     };
+
+    vm.pinArticle = function (article) {
+      logger.success(article.title);
+    };
+
   }
 
 

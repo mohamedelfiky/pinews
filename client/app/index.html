@@ -22,26 +22,39 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
   your browser</a> to improve your experience.</p>
 <![endif]-->
-<nav>
-  <div class="nav-wrapper">
-    <a ui-sref="home" class="brand-logo">PiNews</a>
-    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-    <ul class="right hide-on-med-and-down">
-      <li><a ui-sref="home">Home</a></li>
-      <li><a ui-sref="about">About</a></li>
-      <li><a ui-sref="admin.dashboard" ng-if="user.signedIn">Dash board</a></li>
-      <li><a ui-sref="sign_in" ng-if="!user.signedIn">Sign In</a></li>
-      <li><a href="javascript:void(0);" ng-click="signOut()" ng-if="user.signedIn">Sign out</a></li>
-    </ul>
-    <ul class="side-nav" id="mobile-demo">
-      <li><a ui-sref="home">Home</a></li>
-      <li><a ui-sref="about">About</a></li>
-      <li><a ui-sref="admin.dashboard" ng-if="user.signedIn">Dash board</a></li>
-      <li><a ui-sref="sign_in" ng-if="!user.signedIn">Sign In</a></li>
-      <li><a href="javascript:void(0);" ng-click="signOut()" ng-if="user.signedIn">Sign out</a></li>
-    </ul>
-  </div>
-</nav>
+
+
+<div id="header-wrap">
+  <header id="header">
+    <div class="row" id="nav-desktop">
+        <nav>
+          <div class="nav-wrapper">
+            <div id="logo-container">
+              <a ui-sref="home"><img width="40" class="icon hide-on-med-and-down" src="/images/logo.svg" alt=""></a>
+              <a ui-sref="home" class="brand-logo">PiNews</a>
+            </div>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a ui-sref="home">Home</a></li>
+              <li><a ui-sref="about">About</a></li>
+              <li><a ui-sref="admin.dashboard" ng-if="user.signedIn">Dash board</a></li>
+              <li><a ui-sref="sign_in" ng-if="!user.signedIn">Sign In</a></li>
+              <li><a href="javascript:void(0);" ng-click="signOut()" ng-if="user.signedIn">Sign out</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+              <li><a ui-sref="home">Home</a></li>
+              <li><a ui-sref="about">About</a></li>
+              <li><a ui-sref="admin.dashboard" ng-if="user.signedIn">Dash board</a></li>
+              <li><a ui-sref="sign_in" ng-if="!user.signedIn">Sign In</a></li>
+              <li><a href="javascript:void(0);" ng-click="signOut()" ng-if="user.signedIn">Sign out</a></li>
+            </ul>
+          </div>
+        </nav>
+    </div>
+  </header>
+</div>
+
+
 
 <main>
   <div class="container">

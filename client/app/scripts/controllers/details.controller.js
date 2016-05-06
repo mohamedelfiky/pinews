@@ -12,9 +12,9 @@
   angular.module('pinewsApp')
     .controller('DetailsCtrl', detailsController);
 
-  detailsController.$inject = ['logger', 'article', '$state'];
+  detailsController.$inject = ['logger', 'Article', '$state'];
 
-  function detailsController(logger, article, $state) {
+  function detailsController(logger, Article, $state) {
 
     var vm = this; // jshint ignore:line
 
@@ -22,7 +22,7 @@
 
 
     vm.loadArticle = function () {
-      article.get({id: $state.params.id}, function (res) {
+      Article.get({id: $state.params.id}, function (res) {
         vm.article = res;
       });
     };
