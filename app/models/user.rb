@@ -6,7 +6,10 @@ class User < ActiveRecord::Base
 
 
   belongs_to :role
+  has_many :articles, foreign_key: :author_id
   before_create :set_role
+
+
 
   def admin?
     self.role.name == 'Admin' if self.role
