@@ -27,7 +27,7 @@ class Api::V1::PhotosController < ApplicationController
     if @photo.save
       render json: @photo, status: :created
     else
-      render json: @photo.errors, status: :unprocessable_entity
+      render json: {errors: @photo.errors}, status: :unprocessable_entity
     end
   end
 
@@ -39,7 +39,7 @@ class Api::V1::PhotosController < ApplicationController
     if @photo.update(photo_params)
       head :no_content
     else
-      render json: @photo.errors, status: :unprocessable_entity
+      render json: {errors: @photo.errors}, status: :unprocessable_entity
     end
   end
 

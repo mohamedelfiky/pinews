@@ -32,7 +32,7 @@ class Api::V1::ArticlesController < ApplicationController
     if @article.update(article_params)
       head :no_content
     else
-      render json: @article.errors, status: :unprocessable_entity
+      render json: {errors: @article.errors}, status: :unprocessable_entity
     end
   end
 
