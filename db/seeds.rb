@@ -5,14 +5,13 @@ puts 'Creating admin account ...'
 admin= User.find_by_email('admin@pinews.com')
 unless admin
   admin = User.new({
-                     email: 'admin@pinews.com',
-                     nickname: 'admin',
-                     name: 'admin',
-                     password: '@dm!N123',
-                     role_id: admin_role.id,
-                     confirmed_at: Date.today
-                 })
-  admin.save!
+                       email: 'admin@pinews.com',
+                       nickname: 'admin',
+                       name: 'admin',
+                       password: '@dm!N123',
+                       role_id: admin_role.id,
+                       confirmed_at: Date.today
+                   })
   admin.create_new_auth_token
 end
 
@@ -20,10 +19,17 @@ end
 puts 'Creating Articles ...'
 Article.destroy_all
 (1..20).each do
-  Article.create({
-                     title: Faker::Name.title,
-                     description: Faker::Hipster.paragraph(2),
-                     image: Faker::Avatar.image,
-                     author_id: admin.id
-                 })
+  article = Article.new({
+                            title: Faker::Name.title,
+                            description: Faker::Hipster.paragraph(2),
+                            image: Faker::Avatar.image,
+                            author_id: admin.id
+                        })
+  (1..5).each do
+    article.photos << Photo.new({
+                                    title: Faker::Name.title,
+                                    image: Faker::Avatar.image
+                                })
+  end
+  article.save
 end
