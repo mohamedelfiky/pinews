@@ -9,8 +9,6 @@ gem 'rails-api'
 group :development do
   gem 'guard'
   gem 'guard-rspec', require: false
-  gem 'spring'
-  gem 'byebug'
 end
 
 gem 'mysql2'

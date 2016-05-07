@@ -26,8 +26,8 @@ class ApplicationController < ActionController::API
   end
 
 
-  def checking_arguments(params, require_params)
-    !params.nil? && (require_params - params.keys).count.zero? && params.values.select(&:blank?).count.zero?
+  def checking_arguments(params, required_params)
+    !params.nil? && (required_params - params.keys).count.zero? && params.values.select(&:blank?).count.zero?
   end
 
   def missing_arguments(arg)
