@@ -1,6 +1,7 @@
 class Api::V1::PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :update, :destroy]
   before_action :authenticate_current_user, except: [:index, :show]
+  before_filter :check_arguments, only: [:create, :update]
   load_and_authorize_resource :article
   load_and_authorize_resource :through => :article
 
@@ -51,12 +52,16 @@ class Api::V1::PhotosController < ApplicationController
   end
 
   private
-    def set_photo
-      @photo = Photo.find(params[:id])
-    end
+  def set_photo
+    @photo = Photo.find(params[:id])
+  end
 
-    def photo_params
-      params.require(:photo).permit(:title, :image)
-    end
+  def photo_params
+    params.require(:photo).permit(:title, :image)
+  end
+
+  def check_arguments
+    return missing_arguments(:photo) unless params[:photo]
+  end
 
 end
