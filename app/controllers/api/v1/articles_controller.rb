@@ -1,7 +1,5 @@
 class Api::V1::ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
-  before_filter :check_arguments, only: [:create, :update]
-  before_action :authenticate_current_user, except: [:index, :show]
 
   set_pagination_headers :articles, only: [:index]
   load_and_authorize_resource
@@ -45,10 +43,6 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   private
-  def check_arguments
-    return missing_arguments(:article) unless params[:article]
-  end
-
   def set_article
     @article = Article.find(params[:id])
   end

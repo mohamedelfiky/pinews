@@ -1,7 +1,5 @@
 class Api::V1::PhotosController < ApplicationController
-  before_action :set_photo, only: [:show, :update, :destroy]
-  before_action :authenticate_current_user, except: [:index, :show]
-  before_filter :check_arguments, only: [:create, :update]
+  before_action :set_photo, only: [:update, :destroy]
   load_and_authorize_resource :article
   load_and_authorize_resource :through => :article
 
@@ -12,11 +10,6 @@ class Api::V1::PhotosController < ApplicationController
     render json: @article.photos
   end
 
-  # GET /api/v1/articles/:article_id/photos/1
-  # GET /api/v1/articles/:article_id/photos/1.json
-  def show
-    render json: @photo
-  end
 
   # POST /api/v1/articles/:article_id/photos
   # POST /api/v1/articles/:article_id/photos.json
@@ -60,8 +53,5 @@ class Api::V1::PhotosController < ApplicationController
     params.require(:photo).permit(:title, :image)
   end
 
-  def check_arguments
-    return missing_arguments(:photo) unless params[:photo]
-  end
 
 end

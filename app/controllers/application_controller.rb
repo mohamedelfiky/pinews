@@ -4,6 +4,8 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
 
   before_filter :configure_devise_params, if: :devise_controller?
+  before_filter :check_arguments, only: [:create, :update], unless: :devise_controller?
+  before_action :authenticate_current_user, except: [:index, :show], unless: :devise_controller?
 
   def authenticate_current_user
     head :unauthorized if get_current_user.nil?
@@ -59,4 +61,10 @@ class ApplicationController < ActionController::API
       }.to_json
     end
   end
+
+  def check_arguments
+    resource = controller_name.singularize.to_sym
+    return missing_arguments(resource) unless params[resource]
+  end
+
 end
