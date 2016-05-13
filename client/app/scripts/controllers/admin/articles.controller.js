@@ -14,7 +14,7 @@
   angular.module('pinewsApp')
     .controller('ArticlesCtrl', articlesController);
 
-  articlesController.$inject = ["logger", "article", "Upload", "$timeout", "$scope"];
+  articlesController.$inject = ["logger", "Article", "Upload", "$timeout", "$scope"];
   function articlesController(logger, Article, Upload, $timeout, $scope) {
 
     var default_article = {name: '', description: '', image: ''};

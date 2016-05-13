@@ -1,6 +1,6 @@
 class Api::V1::ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
-  before_action :authenticate_current_user, except: [:index, :show]
+
   set_pagination_headers :articles, only: [:index]
   load_and_authorize_resource
 
@@ -16,11 +16,10 @@ class Api::V1::ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @article.author = current_user
-
     if @article.save
       render json: @article, status: :created
     else
-      render json: @article.errors, status: :unprocessable_entity
+      render json: {errors: @article.errors}, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +30,7 @@ class Api::V1::ArticlesController < ApplicationController
     if @article.update(article_params)
       head :no_content
     else
-      render json: @article.errors, status: :unprocessable_entity
+      render json: {errors: @article.errors}, status: :unprocessable_entity
     end
   end
 
@@ -44,7 +43,6 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   private
-
   def set_article
     @article = Article.find(params[:id])
   end

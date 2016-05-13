@@ -21,3 +21,66 @@ main {
 footer.page-footer {
   padding-top: 0 !important;
 }
+
+#logo-container {
+  display: inline;
+  padding-left: 10px;
+
+  .icon {
+    padding-top: 10px;
+  }
+}
+
+.grid-element-wrap {
+  margin-bottom: 1.5rem;
+
+  .grid-element {
+    position: relative;
+    display: block;
+
+    .btn-floating.btn-large {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -28px;
+      margin-left: -28px;
+      opacity: 0;
+      img {
+        width: 30px;
+        text-align: center;
+        margin-top: 12px;
+        font-size: 1.6rem;
+      }
+    }
+
+    &:hover .btn-floating.btn-large {
+      opacity: 1;
+    }
+
+    .grid-element-bg {
+      display: block;
+      position: relative;
+      z-index: -1;
+      max-width: 100%;
+      height: auto;
+      vertical-align: top;
+    }
+
+    .grid-element-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      font-size: 1rem;
+      margin: 0;
+      line-height: 2.8rem;
+      padding: 0 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 100%;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+

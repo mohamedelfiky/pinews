@@ -5,3 +5,6 @@ json.author do
   json.email @article.author.email
 end
 json.role @article.author.role.name
+json.photos do
+  json.array! @article.photos, :title, :image
+end

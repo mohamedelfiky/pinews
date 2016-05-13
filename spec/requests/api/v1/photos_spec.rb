@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'photos API' do
   let(:user) { create(:user, :admin) }
-  let(:user_header) { user.create_new_auth_token }
+  let(:user_header) { {'Authorization' => user.create_new_auth_token.to_json}  }
   let(:article) { create(:article) }
   let(:photo) { article.photos << FactoryGirl.build(:photo); article.photos.first }
 
@@ -30,7 +30,6 @@ describe 'photos API' do
 
   it 'should create article photo' do
     photo = attributes_for(:photo)
-    cookies['auth_headers'] = user_header.to_json
     photo[:article_id] = article.id
     post "/api/v1/articles/#{article.id}/photos", {photo: photo}, user_header
 
@@ -46,7 +45,6 @@ describe 'photos API' do
   it 'should edit article photo' do
     photo.title = 'el fiky'
 
-    cookies['auth_headers'] = user_header.to_json
     put "/api/v1/articles/#{article.id}/photos/#{photo.id}", { photo: photo.as_json }, user_header
 
     # test for the 204 status-code
@@ -58,7 +56,6 @@ describe 'photos API' do
 
 
   it 'should a destroy article photo' do
-    cookies['auth_headers'] = user_header.to_json
     delete "/api/v1/articles/#{article.id}/photos/#{photo.id}", { }, user_header
 
     # test for the 204 status-code

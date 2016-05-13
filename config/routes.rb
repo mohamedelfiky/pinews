@@ -3,11 +3,15 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-
+      resources :users
       resources :articles do
         resources :photos
+        resources :pins, only: [:index, :create, :destroy] do
+          get :count, :on => :collection
+        end
       end
-
     end
   end
+
+  match '*path', to: 'application#not_found', via: :all
 end
