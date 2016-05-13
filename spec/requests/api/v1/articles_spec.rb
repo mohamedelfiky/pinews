@@ -4,7 +4,7 @@ require 'rack/test'
 
 describe 'Articles API' do
   let(:user) { create(:user, :admin) }
-  let(:user_header) {  user.create_new_auth_token }
+  let(:user_header) { {'Authorization' => user.create_new_auth_token.to_json}  }
   let(:article) { create(:article) }
 
   it 'sends a list of articles' do
@@ -31,7 +31,6 @@ describe 'Articles API' do
 
   it 'should a create article' do
     article = attributes_for(:article)
-    cookies['auth_headers'] = user_header.to_json
     post '/api/v1/articles/', {article: article}, user_header
 
     # test for the 200 status-code
@@ -45,7 +44,6 @@ describe 'Articles API' do
 
   it 'should a edit article' do
     article.title = 'el fiky'
-    cookies['auth_headers'] = user_header.to_json
     put "/api/v1/articles/#{article.id}", { article: article.attributes.except(:image) }, user_header
 
     # test for the 204 status-code
@@ -56,7 +54,6 @@ describe 'Articles API' do
 
 
   it 'should a destroy article' do
-    cookies['auth_headers'] = user_header.to_json
     delete "/api/v1/articles/#{article.id}", { }, user_header
 
     # test for the 204 status-code

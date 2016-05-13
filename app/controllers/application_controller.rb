@@ -4,12 +4,11 @@ class ApplicationController < ActionController::API
 
   before_filter :configure_devise_params, if: :devise_controller?
   before_filter :check_arguments, only: [:create, :update], unless: :devise_controller?
-  before_action :authenticate_current_user, except: [:index, :show], unless: :devise_controller?
+  before_action :authenticate_current_user, except: [:index, :show, :count], unless: :devise_controller?
 
 
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
   rescue_from StandardError, :with => :handle_standard_error
-
 
 
   def authenticate_current_user
@@ -38,7 +37,7 @@ class ApplicationController < ActionController::API
   end
 
   def missing_arguments(arg)
-    render json: {errors: "Missing argument #{arg}"}, status: 400
+    render json: {errors: "Missing argument #{arg}"}, status: :bad_request
   end
 
   def configure_devise_params
@@ -48,13 +47,12 @@ class ApplicationController < ActionController::API
 
 
   def not_found
-    render json: {errors: 'resource not found'}, status: 404
+    return render json: {errors: 'resource not found'}, status: :not_found
   end
 
   def handle_standard_error(exception)
-    render json: {:errors => exception.message}, :status => 500
+    return render json: {:errors => exception.message}, :status => :internal_server_error
   end
-
 
   protected
   def self.set_pagination_headers(name, options = {})

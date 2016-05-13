@@ -4,7 +4,7 @@ require 'rack/test'
 
 describe 'Users API' do
   let(:user) { create(:user, :admin) }
-  let(:user_header) {  user.create_new_auth_token }
+  let(:user_header) { {'Authorization' => user.create_new_auth_token.to_json}  }
 
   it 'sends a list of users' do
     create_list(:user, 10, :author)
@@ -30,7 +30,6 @@ describe 'Users API' do
 
   it 'should a create user' do
     user = attributes_for(:user)
-    cookies['auth_headers'] = user_header.to_json
     post '/api/v1/users/', {user: user}, user_header
 
     # test for the 200 status-code
@@ -44,7 +43,6 @@ describe 'Users API' do
 
   it 'should a edit user' do
     user.name = 'name'
-    cookies['auth_headers'] = user_header.to_json
     put "/api/v1/users/#{user.id}", { user: user.attributes.except(:image) }, user_header
 
     # test for the 204 status-code
@@ -55,7 +53,6 @@ describe 'Users API' do
 
 
   it 'should a destroy user' do
-    cookies['auth_headers'] = user_header.to_json
     delete "/api/v1/users/#{user.id}", { }, user_header
 
     # test for the 204 status-code

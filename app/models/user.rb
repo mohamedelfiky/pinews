@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
   after_create :create_new_auth_token
 
   belongs_to :role
-  has_many :articles, foreign_key: :author_id
+  has_many :articles, foreign_key: :author_id, dependent: :destroy
+  has_many :pins, dependent: :destroy
   before_create :set_role
   self.per_page = 5
 

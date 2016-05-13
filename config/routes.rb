@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       resources :users
       resources :articles do
         resources :photos
+        resources :pins, only: [:index, :create, :destroy] do
+          get :count, :on => :collection
+        end
       end
     end
   end
