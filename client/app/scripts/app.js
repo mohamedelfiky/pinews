@@ -26,10 +26,11 @@
       'ui.router',
       'infinite-scroll'
     ])
+    .value('config', { API_BASE_URL: '/api/v1/' })
     .config(function ($authProvider) {
       $authProvider.configure({
         apiUrl: 'http://localhost:9000/api/v1',
-        validateOnPageLoad: false,
+        validateOnPageLoad: true,
         storage: 'cookies'
       });
 

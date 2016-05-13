@@ -11,10 +11,10 @@
   angular.module('pinewsApp')
     .factory('Article', articleService);
 
-  articleService.$inject = ['$resource'];
+  articleService.$inject = ['$resource', 'config'];
 
-  function articleService($resource) {
-    return $resource('/api/v1/articles/:id', null,
+  function articleService($resource, config) {
+    return $resource(config.API_BASE_URL + 'articles/:id', null,
       {
         'update': { method:'PUT' }
       });

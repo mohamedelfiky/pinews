@@ -11,9 +11,9 @@
   angular.module('pinewsApp')
     .controller('MainCtrl', mainController);
 
-  mainController.$inject = ['Article', 'logger'];
+  mainController.$inject = ['Article', 'Pin', 'logger'];
 
-  function mainController(Article, logger) {
+  function mainController(Article, Pin, logger) {
     var vm = this;  // jshint ignore:line
 
     // init!
@@ -23,7 +23,6 @@
     vm.itemsPerPage = 5;
     vm.busy = false;
     vm.needToLoadMore = false;
-
 
 
     vm.loadArticles = function (page) {
@@ -57,7 +56,16 @@
     };
 
     vm.pinArticle = function (article) {
-      logger.success(article.title);
+      new Pin({}).$save({articleId: article.id}).then(function () {
+        logger.success('Pined to your favourites..');
+      }, function (err) {
+        if (err.status === 401){
+          logger.error('Please login or register <br/> to pin your favorite Articles');
+        }else{
+          logger.error(err.data.errors[Object.keys(err.data.errors)[0]][0]);
+        }
+      });
+
     };
   }
 

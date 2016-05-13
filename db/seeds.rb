@@ -32,4 +32,5 @@ Article.destroy_all
                                 })
   end
   article.save
+  article.pins << Pin.new({ user_id: admin.id })
 end
