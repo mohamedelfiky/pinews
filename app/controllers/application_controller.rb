@@ -1,11 +1,16 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
   include CanCan::ControllerAdditions
-  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
 
   before_filter :configure_devise_params, if: :devise_controller?
   before_filter :check_arguments, only: [:create, :update], unless: :devise_controller?
   before_action :authenticate_current_user, except: [:index, :show], unless: :devise_controller?
+
+
+  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+  rescue_from StandardError, :with => :handle_standard_error
+
+
 
   def authenticate_current_user
     head :unauthorized if get_current_user.nil?
@@ -40,8 +45,14 @@ class ApplicationController < ActionController::API
     devise_parameter_sanitizer.for(:sign_up) << [:name, :nickname]
   end
 
+
+
   def not_found
     render json: {errors: 'resource not found'}, status: 404
+  end
+
+  def handle_standard_error(exception)
+    render json: {:errors => exception.message}, :status => 500
   end
 
 
@@ -66,5 +77,4 @@ class ApplicationController < ActionController::API
     resource = controller_name.singularize.to_sym
     return missing_arguments(resource) unless params[resource]
   end
-
 end

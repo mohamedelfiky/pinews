@@ -1,5 +1,5 @@
 class Api::V1::PhotosController < ApplicationController
-  before_action :set_photo, only: [:update, :destroy]
+  before_action :set_photo, only: [:show, :update, :destroy]
   load_and_authorize_resource :article
   load_and_authorize_resource :through => :article
 
@@ -10,6 +10,10 @@ class Api::V1::PhotosController < ApplicationController
     render json: @article.photos
   end
 
+
+  def show
+    render json: @photo
+  end
 
   # POST /api/v1/articles/:article_id/photos
   # POST /api/v1/articles/:article_id/photos.json

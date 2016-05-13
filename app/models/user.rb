@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   devise :registerable, :recoverable, :rememberable, :trackable, :validatable
   before_create :skip_confirmation!
+  after_create :create_new_auth_token
 
   belongs_to :role
   has_many :articles, foreign_key: :author_id

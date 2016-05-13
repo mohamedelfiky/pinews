@@ -10,7 +10,8 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.author?
-      can :read_create, :all
+      can :read, User
+      can :read_create, [Article, Photo, Pin]
       can :update_destroy, Article, :author_id => user.id
       can :update_destroy, Photo, :article => { :author_id => user.id }
     else

@@ -12,7 +12,7 @@ unless admin
                        role_id: admin_role.id,
                        confirmed_at: Date.today
                    })
-  admin.create_new_auth_token
+  admin.save
 end
 
 
@@ -25,7 +25,7 @@ Article.destroy_all
                             image: Faker::Avatar.image,
                             author_id: admin.id
                         })
-  (1..5).each do
+  (1..2).each do
     article.photos << Photo.new({
                                     title: Faker::Name.title,
                                     image: Faker::Avatar.image

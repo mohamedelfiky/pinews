@@ -6,8 +6,8 @@ class Article < ActiveRecord::Base
   self.per_page = 5
 
   has_attached_file :image,
-                    path: "#{Rails.root}/public/assets/images/articles/:id_:style.:extension",
-                    url: '/assets/images/articles/:id_:style.:extension',
+                    path: "#{Rails.root}/public/assets/images/articles/:id/:filename_:style.:extension",
+                    url: '/assets/images/articles/:id/:filename_:style.:extension',
                     styles: {medium: '400x400>', thumb: '100x100>', :mini => '90x90#'},
                     size: {:in => 0..6.megabytes},
                     convert_options: {

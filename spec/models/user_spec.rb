@@ -27,11 +27,15 @@ RSpec.describe User, type: :model do
 
       it { is_expected.to be_able_to(:update_destroy, my_photo.first) }
       it { is_expected.not_to be_able_to(:update_destroy, others_photo.first) }
+
+      it { is_expected.to be_able_to(:read, user) }
+      it { is_expected.not_to be_able_to(:cud, build(:user, :author)) }
     end
 
     context 'when is a admin' do
       let(:role) { :admin }
       it { is_expected.to be_able_to(:manage, build(:article)) }
+      it { is_expected.to be_able_to(:manage, build(:user, :author)) }
     end
   end
 
