@@ -1,5 +1,5 @@
-class Api::V1::ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :update, :destroy]
+class V1::ArticlesController < ApplicationController
+  before_action :set_article, only: %i(show update destroy)
 
   set_pagination_headers :articles, only: [:index]
   load_and_authorize_resource
@@ -7,9 +7,8 @@ class Api::V1::ArticlesController < ApplicationController
   # GET /api/v1/articles
   # GET /api/v1/articles.json
   def index
-    @articles = Article.includes(:role).paginate(:page => params[:page])
+    @articles = Article.includes(:role).paginate(page: params[:page])
   end
-
 
   # POST /api/v1/articles
   # POST /api/v1/articles.json
@@ -19,7 +18,7 @@ class Api::V1::ArticlesController < ApplicationController
     if @article.save
       render json: @article, status: :created
     else
-      render json: {errors: @article.errors}, status: :unprocessable_entity
+      render json: { errors: @article.errors }, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +29,7 @@ class Api::V1::ArticlesController < ApplicationController
     if @article.update(article_params)
       head :no_content
     else
-      render json: {errors: @article.errors}, status: :unprocessable_entity
+      render json: { errors: @article.errors }, status: :unprocessable_entity
     end
   end
 
@@ -43,6 +42,7 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   private
+
   def set_article
     @article = Article.find(params[:id])
   end

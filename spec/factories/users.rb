@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :user do
-    sequence(:name) { |n| Faker::Internet.user_name }
-    sequence(:nickname) { |n| Faker::Name.name }
-    sequence(:email) { |n| Faker::Internet.email }
-    sequence(:password) { |n| Faker::Internet.password }
+    sequence(:name) { Faker::Internet.user_name }
+    sequence(:nickname) { Faker::Name.name }
+    sequence(:email) { Faker::Internet.email }
+    sequence(:password) { Faker::Internet.password }
 
-    confirmed_at Date.today
+    confirmed_at Time.zone.today
 
     trait :guest do
       role_id nil
@@ -18,6 +18,5 @@ FactoryGirl.define do
     trait :author do
       role_id Role.find_by_name('Author').id
     end
-
   end
 end

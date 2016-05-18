@@ -1,10 +1,11 @@
 require 'rails_helper'
 require 'rack/test'
 
-
 describe 'Articles API' do
   let(:user) { create(:user, :admin) }
-  let(:user_header) { {'Authorization' => user.create_new_auth_token.to_json}  }
+  let(:user_header) do
+    { 'Authorization' => user.create_new_auth_token.to_json }
+  end
   let(:article) { create(:article) }
 
   it 'sends a list of articles' do
@@ -20,7 +21,7 @@ describe 'Articles API' do
   end
 
   it 'retrieves a specific article' do
-    get "/api/v1/articles/#{article.id}"
+    get "/api/v1/articles/#{ article.id }"
 
     # test for the 200 status-code
     expect(response).to be_success
@@ -31,7 +32,7 @@ describe 'Articles API' do
 
   it 'should a create article' do
     article = attributes_for(:article)
-    post '/api/v1/articles/', {article: article}, user_header
+    post '/api/v1/articles/', { article: article }, user_header
 
     # test for the 200 status-code
     expect(response).to be_success
@@ -40,11 +41,9 @@ describe 'Articles API' do
     expect(json['title']).to eq(article[:title])
   end
 
-
-
   it 'should a edit article' do
-    article.title = 'el fiky'
-    put "/api/v1/articles/#{article.id}", { article: article.attributes.except(:image) }, user_header
+    attributes = attributes_for(:article)
+    put "/api/v1/articles/#{ article.id }", { article: attributes }, user_header
 
     # test for the 204 status-code
     expect(response.status).to eql(204)
@@ -52,9 +51,8 @@ describe 'Articles API' do
     expect(Article.find(article.id).title).to eq(article.title)
   end
 
-
   it 'should a destroy article' do
-    delete "/api/v1/articles/#{article.id}", { }, user_header
+    delete "/api/v1/articles/#{ article.id }", {}, user_header
 
     # test for the 204 status-code
     expect(response.status).to eql(204)

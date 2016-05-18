@@ -60,7 +60,7 @@
     }
 
     $scope.$on("update-article", function (event, args) {
-      if (args.article.image && args.article.image.substring(0, 7) != 'http://') {
+      if (args.article.image && args.article.image.substring(0, 7) !== 'http://') {
         vm.upload(
           args.article,
           {method: 'PUT', url: '/api/v1/articles/' + args.article.id + '.json'},
@@ -122,7 +122,7 @@
       }, function (resp) {
         logger.error('Error status: ' + resp.status);
       }, function (evt) {
-        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total, 10);
         console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
       });
     };

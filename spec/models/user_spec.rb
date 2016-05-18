@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   describe 'Ability' do
-
     subject(:ability) { Ability.new(user) }
     let(:user) { build(:user, role) }
 
@@ -20,12 +18,24 @@ RSpec.describe User, type: :model do
 
     context 'when is an author' do
       let(:role) { :author }
-      let(:my_article) { g = build(:article); g.update_attribute(:author_id, user.id); g }
+      let(:my_article) do
+        g = build(:article)
+        g.update_attribute(:author_id, user.id)
+        g
+      end
       let(:my_photo) { my_article.photos << FactoryGirl.build(:photo) }
-      let(:others_article) { g = build(:article); g.update_attribute(:author_id,  create(:user, :admin).id); g }
+      let(:others_article) do
+        g = build(:article)
+        g.update_attribute(:author_id, create(:user, :admin).id)
+        g
+      end
       let(:others_photo) { others_article.photos << FactoryGirl.build(:photo) }
 
-      let(:my_pin) {  p= create(:pin); p.update_attribute(:user_id, user.id); p}
+      let(:my_pin) do
+        p = create(:pin)
+        p.update_attribute(:user_id, user.id)
+        p
+      end
       let(:others_pin) { build(:user, :author) }
 
       it { is_expected.to be_able_to(:read_create, my_article) }
@@ -50,5 +60,4 @@ RSpec.describe User, type: :model do
       it { is_expected.to be_able_to(:manage, build(:pin)) }
     end
   end
-
 end

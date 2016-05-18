@@ -1,33 +1,31 @@
-class Api::V1::PinsController < ApplicationController
+class V1::PinsController < ApplicationController
   before_action :set_pin, only: :destroy
   skip_before_action :check_arguments
 
   load_and_authorize_resource :article
-  load_and_authorize_resource :through => :article
-
+  load_and_authorize_resource through: :article
 
   # GET /api/v1/articles/:article_id/pins
   # GET /api/v1/articles/:article_id/pins
   def index
-    @pins= Pin.joins(:user).where(pins: {article_id: @article.id})
+    @pins = Pin.joins(:user).where(pins: { article_id: @article.id })
   end
-
 
   # GET /api/v1/articles/:article_id/pins/count
   # GET /api/v1/articles/:article_id/pins/count.json
   def count
-    render json: {count: @article.pins.count}
+    render json: { count: @article.pins.count }
   end
 
   # POST /api/v1/articles/:article_id/pins
   # POST /api/v1/articles/:article_id/pins.json
   def create
-    @pin = Pin.new({user: current_user, article: @article})
+    @pin = Pin.new(user: current_user, article: @article)
 
     if @pin.save
       render json: @pin, status: :created
     else
-      render json: {errors: @pin.errors}, status: :unprocessable_entity
+      render json: { errors: @pin.errors }, status: :unprocessable_entity
     end
   end
 
@@ -40,6 +38,7 @@ class Api::V1::PinsController < ApplicationController
   end
 
   private
+
   def set_pin
     @pin = Pin.find(params[:id])
   end

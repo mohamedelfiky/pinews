@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Photo, type: :model do
-
-  subject(:photo){ build :photo }
+  subject(:photo) { build :photo }
 
   describe 'when title is not present' do
     before { photo.title = ' ' }
@@ -17,5 +16,4 @@ RSpec.describe Photo, type: :model do
   describe 'when all is present' do
     it { is_expected.to be_valid }
   end
-
 end

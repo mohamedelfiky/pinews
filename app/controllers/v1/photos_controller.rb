@@ -1,15 +1,13 @@
-class Api::V1::PhotosController < ApplicationController
-  before_action :set_photo, only: [:show, :update, :destroy]
+class V1::PhotosController < ApplicationController
+  before_action :set_photo, only: %i(show update destroy)
   load_and_authorize_resource :article
-  load_and_authorize_resource :through => :article
-
+  load_and_authorize_resource through: :article
 
   # GET /api/v1/articles/:article_id/photos
   # GET /api/v1/articles/:article_id/photos.json
   def index
     render json: @article.photos
   end
-
 
   def show
     render json: @photo
@@ -24,7 +22,7 @@ class Api::V1::PhotosController < ApplicationController
     if @photo.save
       render json: @photo, status: :created
     else
-      render json: {errors: @photo.errors}, status: :unprocessable_entity
+      render json: { errors: @photo.errors }, status: :unprocessable_entity
     end
   end
 
@@ -36,7 +34,7 @@ class Api::V1::PhotosController < ApplicationController
     if @photo.update(photo_params)
       head :no_content
     else
-      render json: {errors: @photo.errors}, status: :unprocessable_entity
+      render json: { errors: @photo.errors }, status: :unprocessable_entity
     end
   end
 
@@ -49,6 +47,7 @@ class Api::V1::PhotosController < ApplicationController
   end
 
   private
+
   def set_photo
     @photo = Photo.find(params[:id])
   end
@@ -56,6 +55,4 @@ class Api::V1::PhotosController < ApplicationController
   def photo_params
     params.require(:photo).permit(:title, :image)
   end
-
-
 end

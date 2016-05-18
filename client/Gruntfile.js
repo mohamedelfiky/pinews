@@ -8,12 +8,19 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
+  // requires
+  var jshint = require('jshint-stylish');
+  var autoprefixer = require('autoprefixer-core');
+  var gruntProxy = require('grunt-connect-proxy/lib/utils');
+  var bowerConfig = require('./bower.json');
+  var timeGrunt = require('time-grunt');
+  var jitGrunt = require('jit-grunt');
 
   // Time how long tasks take. Can help when optimizing build times
-  require('time-grunt')(grunt);
+  timeGrunt(grunt);
 
   // Automatically load required Grunt tasks
-  require('jit-grunt')(grunt, {
+  jitGrunt(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn'
@@ -21,7 +28,7 @@ module.exports = function (grunt) {
 
   // Configurable paths for the application
   var appConfig = {
-    app: require('./bower.json').appPath || 'app',
+    app: bowerConfig.appPath || 'app',
     dist: 'dist'
   };
 
@@ -95,7 +102,7 @@ module.exports = function (grunt) {
 
             // Setup the proxy
             var middlewares = [
-              require('grunt-connect-proxy/lib/utils').proxyRequest,
+              gruntProxy.proxyRequest,
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -145,7 +152,7 @@ module.exports = function (grunt) {
       options: {
         jshintrc: '.jshintrc',
         latedef: false,
-        reporter: require('jshint-stylish')
+        reporter: jshint
       },
       all: {
         src: [
@@ -198,7 +205,7 @@ module.exports = function (grunt) {
     postcss: {
       options: {
         processors: [
-          require('autoprefixer-core')({browsers: ['last 1 version']})
+          autoprefixer({browsers: ['last 1 version']})
         ]
       },
       server: {

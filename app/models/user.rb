@@ -11,20 +11,18 @@ class User < ActiveRecord::Base
   before_create :set_role
   self.per_page = 5
 
-
-
-  validates_presence_of :name, :nickname
-  validates_uniqueness_of :email
+  validates :name, :nickname, presence: true
+  validates :email, uniqueness: true
 
   def admin?
-    self.role.name == 'Admin' if self.role
+    role.name == 'Admin' if role
   end
 
   def author?
-    self.role.name == 'Author' if self.role
+    role.name == 'Author' if role
   end
 
   def set_role
-    self.role = Role.find_by_name('Author') unless self.role
+    Role.find_by_name('Author') unless role
   end
 end

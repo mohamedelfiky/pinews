@@ -1,3 +1,5 @@
+/*eslint wrap-iife: [2, "inside"]*/
+
 (function () {
   'use strict';
 

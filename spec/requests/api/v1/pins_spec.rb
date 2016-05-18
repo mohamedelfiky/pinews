@@ -2,10 +2,16 @@ require 'rails_helper'
 
 describe 'Article Pins API' do
   let(:user) { create(:user, :admin) }
-  let(:user_header) { {'Authorization' => user.create_new_auth_token.to_json}  }
+  let(:user_header) do
+    { 'Authorization' => user.create_new_auth_token.to_json }
+  end
   let(:article) { create(:article) }
-  let(:pin) { p = build(:pin); p.update_attributes({article_id: article.id, user_id: user.id}); p }
-  let(:base_url) { "/api/v1/articles/#{article.id}/pins/" }
+  let(:pin) do
+    p = build(:pin)
+    p.update_attributes(article_id: article.id, user_id: user.id)
+    p
+  end
+  let(:base_url) { "/api/v1/articles/#{ article.id }/pins/" }
 
   it 'sends a list of article Pins' do
     article.pins << build_list(:pin, 2)
@@ -40,9 +46,8 @@ describe 'Article Pins API' do
     expect(json['article_id']).to eq(article.id)
   end
 
-
   it 'should a destroy article pin' do
-    delete base_url + pin.id.to_s, {},  user_header
+    delete base_url + pin.id.to_s, {}, user_header
 
     # test for the 204 status-code
     expect(response.status).to eql(204)

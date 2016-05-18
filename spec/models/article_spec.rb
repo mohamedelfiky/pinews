@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Article, type: :model do
-
-  subject(:article){ build :article }
+  subject(:article) { build :article }
 
   describe 'when title is not present' do
     before { article.title = ' ' }
@@ -22,5 +21,4 @@ RSpec.describe Article, type: :model do
   describe 'when all is present' do
     it { is_expected.to be_valid }
   end
-
 end

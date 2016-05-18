@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Pin, type: :model do
-
-  subject(:pin){ build :pin }
+  subject(:pin) { build :pin }
 
   describe 'when article_id is not present' do
     before { pin.article_id = nil }
@@ -17,5 +16,4 @@ RSpec.describe Pin, type: :model do
   describe 'when all is present' do
     it { is_expected.to be_valid }
   end
-
 end

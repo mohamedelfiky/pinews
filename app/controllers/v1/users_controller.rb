@@ -1,5 +1,5 @@
-class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+class V1::UsersController < ApplicationController
+  before_action :set_user, only: %i(show update destroy)
 
   set_pagination_headers :users, only: [:index]
   load_and_authorize_resource
@@ -7,9 +7,8 @@ class Api::V1::UsersController < ApplicationController
   # GET /api/v1/users
   # GET /api/v1/users.json
   def index
-    @users = User.all.paginate(:page => params[:page])
+    @users = User.all.paginate(page: params[:page])
   end
-
 
   # POST /api/v1/users
   # POST /api/v1/users.json
@@ -19,7 +18,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       render json: @user, status: :created
     else
-      render json: {errors: @user.errors}, status: :unprocessable_entity
+      render json: { errors: @user.errors }, status: :unprocessable_entity
     end
   end
 
@@ -27,13 +26,12 @@ class Api::V1::UsersController < ApplicationController
   # PATCH/PUT /api/v1/users/1.json
   def update
     @user = User.find(params[:id])
-    params[:user].delete(:password) if params[:user][:password].blank?
-    params[:user].delete(:password_confirmation) if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
+    delete_password_if_blank?
 
     if @user.update_attributes(user_params)
       head :no_content
     else
-      render json: {errors: @user.errors}, status: :unprocessable_entity
+      render json: { errors: @user.errors }, status: :unprocessable_entity
     end
   end
 
@@ -46,11 +44,21 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
+
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:name, :nickname, :email, :password, :password_confirmation, :role_id)
+    fields = %i(name nickname email password password_confirmation role_id)
+    params.require(:user).permit(*fields)
+  end
+
+  def delete_password_if_blank?
+    user = params[:user]
+    user.delete(:password) if user[:password].blank?
+    if user[:password].blank? && user[:password_confirmation].blank?
+      params[:user].delete(:password_confirmation)
+    end
   end
 end
