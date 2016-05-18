@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates :name, :nickname, presence: true
   validates :email, uniqueness: true
 
+
   def admin?
     role.name == 'Admin' if role
   end
