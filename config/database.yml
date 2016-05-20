@@ -1,9 +1,4 @@
 <%= IO.read("config/local_database.yml") if File.exists?('config/local_database.yml') %>
 
 production:
-  <<: *default
-  database: <%= ENV['DB_NAME'] %>
-  username: <%= ENV['USERNAME'] %>
-  password: <%= ENV['PASSWORD'] %>
-  host: <%= ENV['HOSTNAME'] %>
-  port: <%= ENV['PORT'] %>
+  url: <%= ENV['DATABASE_URL'] %>
