@@ -37,6 +37,13 @@ group :test, :development do
   gem 'byebug'
 end
 
+group :production do
+  # Use PostreSQL in production env
+  gem 'pg'
+  # Heroku 12factor integration
+  gem 'rails_12factor'
+end
+
 gem 'faker'
 gem 'jbuilder'
 gem 'will_paginate', '~> 3.0.6'

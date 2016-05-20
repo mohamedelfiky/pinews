@@ -13,7 +13,7 @@
 /tmp
 /config/local_database.yml
 .idea/
-/public/assets
+/public
 .byebug_history
 
 # Ignoring simplecov output dir
