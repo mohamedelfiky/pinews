@@ -7,16 +7,14 @@ FactoryGirl.define do
 
     confirmed_at Time.zone.today
 
-    trait :guest do
-      role_id nil
-    end
+    role_id nil
 
     trait :admin do
-      role_id Role.find_by_name('Admin').id
+      role_id { (Role.find_by_name('Admin') || create(:role, :admin)).id }
     end
 
     trait :author do
-      role_id Role.find_by_name('Author').id
+      role_id { (Role.find_by_name('Author') || create(:role)).id }
     end
   end
 end

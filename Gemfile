@@ -21,7 +21,15 @@ gem 'paperclip', '~> 5.0.0.beta1'
 group :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails', require: false
-  gem 'codeclimate-test-reporter', group: :test
+  # Cleane database in tests
+  gem 'database_cleaner'
+
+  # Reporting test coverage to Code Climate
+  gem 'simplecov', require: false
+  gem 'codeclimate-test-reporter', require: nil
+
+  # Rspec one-liners
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :test, :development do

@@ -1,62 +1,114 @@
 require 'rails_helper'
 require 'rack/test'
 
-describe 'Articles API' do
-  let(:user) { create(:user, :admin) }
-  let(:user_header) do
-    { 'Authorization' => user.create_new_auth_token.to_json }
-  end
+describe V1::ArticlesController do
+
   let(:article) { create(:article) }
+  routes_for :article
 
-  it 'sends a list of articles' do
-    create_list(:article, 10)
+  describe 'GET #index' do
+    before { get articles_path }
 
-    get '/api/v1/articles'
+    it 'returns http success' do
+      expect(response).to be_success
+    end
 
-    # test for the 200 status-code
-    expect(response).to be_success
+    it 'renders correct template' do
+      is_expected.to render_template('articles/index')
+    end
 
-    # article page size =5
-    expect(json.count).to eq(5)
+    it 'respects `page` param' do
+      get articles_path, page: 2
+      expect(json.size).to eq(0)
+    end
   end
 
-  it 'retrieves a specific article' do
-    get "/api/v1/articles/#{ article.id }"
+  describe 'GET #show' do
+    before { get article_path }
 
-    # test for the 200 status-code
-    expect(response).to be_success
+    it 'returns http success' do
+      expect(response).to be_success
+    end
 
-    # check that the article attributes are the same.
-    expect(json['title']).to eq(article.title)
+    it 'renders correct template' do
+      is_expected.to render_template('articles/show')
+    end
   end
 
-  it 'should a create article' do
-    article = attributes_for(:article)
-    post '/api/v1/articles/', { article: article }, user_header
+  describe 'POST #create' do
+    context 'with valid params' do
+      before { post articles_path, { article: attributes_for(:article) }, user_header }
 
-    # test for the 200 status-code
-    expect(response).to be_success
+      it 'returns http `created`' do
+        expect(response).to be_created
+      end
 
-    # check that the article attributes are the same.
-    expect(json['title']).to eq(article[:title])
+      it 'renders correct template' do
+        is_expected.to render_template('articles/show')
+      end
+
+      it 'assigns created article to current user' do
+        expect(Article.last.author).to eq(user)
+      end
+    end
+
+    context 'with invalid params' do
+      before { post articles_path, { article: { title: '' } }, user_header }
+
+      it 'returns unprocessable entity' do
+        expect(response).to be_unprocessable
+      end
+
+      it 'returns JSON with errors' do
+        expect(json['errors']).to be_present
+      end
+    end
+
+    context 'without article object' do
+      before { post articles_path, { title: '' }, user_header }
+
+      it 'returns unprocessable entity' do
+        expect(response).to be_bad_request
+      end
+
+      it 'returns JSON with errors' do
+        expect(json['errors']).to be_present
+      end
+    end
   end
 
-  it 'should a edit article' do
-    attributes = attributes_for(:article)
-    put "/api/v1/articles/#{ article.id }", { article: attributes }, user_header
+  describe 'PUT #update' do
+    context 'with valid params' do
+      it 'renders updated article' do
+        put article_path, { article: attributes_for(:article) }, user_header
 
-    # test for the 204 status-code
-    expect(response.status).to eql(204)
+        is_expected.to render_template('articles/show')
+      end
+    end
 
-    expect(Article.find(article.id).title).to eq(article.title)
+    context 'with invalid params' do
+      before { put article_path, { article: { description: '' } }, user_header }
+
+      it 'returns unprocessable entity' do
+        expect(response).to be_unprocessable
+      end
+
+      it 'returns JSON with errors' do
+        expect(json['errors']).to be_present
+      end
+    end
   end
 
-  it 'should a destroy article' do
-    delete "/api/v1/articles/#{ article.id }", {}, user_header
+  describe 'DELETE #destroy' do
+    before { delete article_path, {}, user_header }
 
-    # test for the 204 status-code
-    expect(response.status).to eql(204)
+    it 'returns http no content' do
+      expect(response).to have_http_status(:no_content)
+    end
 
-    expect(Article.find_by_id(article.id)).to eq(nil)
+    it 'actually deletes article' do
+      # ensure that private attributes aren't serialized
+      expect(Article.find_by_id(article.id)).to eq(nil)
+    end
   end
 end

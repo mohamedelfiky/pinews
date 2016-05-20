@@ -1,5 +1,13 @@
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
+if ENV['CODECLIMATE_REPO_TOKEN']
+  # Running on CI
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+else
+  # Running locally
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
+
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

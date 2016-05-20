@@ -1,72 +1,106 @@
 require 'rails_helper'
 
 describe 'photos API' do
-  let(:user) { create(:user, :admin) }
   let(:article) { create(:article) }
-  let(:user_header) do
-    { 'Authorization' => user.create_new_auth_token.to_json }
-  end
+
   let(:photo) do
-    article.photos << FactoryGirl.build(:photo)
+    article.photos << build(:photo)
     article.photos.first
   end
+  routes_for :photo, parents: %i(article)
 
-  it 'sends a list of article photos' do
-    article.photos << build_list(:photo, 10)
 
-    get "/api/v1/articles/#{ article.id }/photos"
+  describe 'GET #index' do
+    before { get photos_path }
 
-    # test for the 200 status-code
-    expect(response).to be_success
+    it 'returns http success' do
+      expect(response).to be_success
+    end
 
-    # check to make sure the right amount of messages are returned
-    expect(json.count).to eq(10)
+    it 'respects `page` param' do
+      get photos_path, page: 2
+      expect(json.size).to eq(0)
+    end
   end
 
-  it 'retrieve a specific photo' do
-    get "/api/v1/articles/#{ article.id }/photos/#{ photo.id }"
+  describe 'GET #show' do
+    before { get photo_path }
 
-    # test for the 200 status-code
-    expect(response).to be_success
-
-    # check that the message attributes are the same.
-    expect(json['title']).to eq(photo.title)
+    it 'returns http success' do
+      expect(response).to be_success
+    end
   end
 
-  it 'should create article photo' do
-    photo = attributes_for(:photo)
-    photo[:article_id] = article.id
-    create_url = "/api/v1/articles/#{ article.id }/photos"
-    post create_url, { photo: photo }, user_header
+  describe 'POST #create' do
+    context 'with valid params' do
+      before { post photos_path, { photo: attributes_for(:photo) }, user_header }
 
-    # test for the 200 status-code
-    expect(response).to be_success
+      it 'returns http `created`' do
+        expect(response).to be_created
+      end
 
-    # check that the message attributes are the same.
-    expect(json['title']).to eq(photo[:title])
+      it 'assigns created photo to correct article' do
+        expect(Photo.last.article).to eq(article)
+      end
+    end
+
+    context 'with invalid params' do
+      before { post photos_path, { photo: { title: '' } }, user_header }
+
+      it 'returns unprocessable entity' do
+        expect(response).to be_unprocessable
+      end
+
+      it 'returns JSON with errors' do
+        expect(json['errors']).to be_present
+      end
+    end
+
+    context 'without photo object' do
+      before { post photos_path, { title: '' }, user_header }
+
+      it 'returns unprocessable entity' do
+        expect(response).to be_bad_request
+      end
+
+      it 'returns JSON with errors' do
+        expect(json['errors']).to be_present
+      end
+    end
   end
 
-  it 'should edit article photo' do
-    edit_url = "/api/v1/articles/#{ article.id }/photos/#{ photo.id }"
-    photo.title = 'el fiky'
+  describe 'PUT #update' do
+    context 'with valid params' do
+      it 'renders updated photo' do
+        put photo_path, { photo: attributes_for(:photo) }, user_header
 
-    put edit_url, { photo: photo.as_json }, user_header
+        expect(json['title']).to eq(photo.title)
+      end
+    end
 
-    # test for the 204 status-code
-    expect(response.status).to eql(204)
+    context 'with invalid params' do
+      before { put photo_path, { photo: { title: '' } }, user_header }
 
-    # ensure that private attributes aren't serialized
-    expect(Photo.find(photo.id).title).to eq(photo.title)
+      it 'returns unprocessable entity' do
+        expect(response).to be_unprocessable
+      end
+
+      it 'returns JSON with errors' do
+        expect(json['errors']).to be_present
+      end
+    end
   end
 
-  it 'should a destroy article photo' do
-    delete_url = "/api/v1/articles/#{ article.id }/photos/#{ photo.id }"
-    delete delete_url, {}, user_header
+  describe 'DELETE #destroy' do
+    before { delete photo_path, {}, user_header }
 
-    # test for the 204 status-code
-    expect(response.status).to eql(204)
+    it 'returns http no content' do
+      expect(response).to have_http_status(:no_content)
+    end
 
-    # ensure that private attributes aren't serialized
-    expect(Photo.find_by_id(photo.id)).to eq(nil)
+    it 'actually deletes photo' do
+      # ensure that private attributes aren't serialized
+      expect(Photo.find_by_id(photo.id)).to eq(nil)
+    end
   end
 end

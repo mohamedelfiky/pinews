@@ -11,17 +11,16 @@ module AuthProtected
 
   def detect_current_user
     auth_headers = request.cookies['auth_headers'] || request.headers['Authorization']
-    return nil unless auth_headers
+    if auth_headers
+      auth_headers = JSON.parse(auth_headers)
+      current_user = User.find_by(uid: auth_headers['uid'])
 
-    auth_headers = JSON.parse(auth_headers)
-    expiry, uid, client = auth_headers['expiry'], auth_headers['uid'], auth_headers['client']
-
-    expiration_datetime = DateTime.strptime(expiry, '%s')
-    current_user = User.find_by(uid: uid)
-
-    if current_user && current_user.tokens.key?(client) && expiration_datetime > DateTime.current
-      @current_user = current_user
+      @current_user = current_user if validate_user_token(current_user, auth_headers['expiry'], auth_headers['client'])
     end
     @current_user
+  end
+
+  def validate_user_token(user, expiry, client)
+    user && user.tokens.key?(client) && (DateTime.strptime(expiry, '%s') > DateTime.current)
   end
 end

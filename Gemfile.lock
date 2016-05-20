@@ -50,6 +50,7 @@ GEM
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
     concurrent-ruby (1.0.1)
+    database_cleaner (1.5.1)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -204,6 +205,8 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
     shellany (0.0.1)
+    shoulda-matchers (3.1.1)
+      activesupport (>= 4.0.0)
     simplecov (0.11.2)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -234,6 +237,7 @@ DEPENDENCIES
   byebug
   cancancan (~> 1.10)
   codeclimate-test-reporter
+  database_cleaner
   devise
   devise_token_auth
   factory_girl_rails
@@ -250,6 +254,8 @@ DEPENDENCIES
   rails-api
   rspec-rails
   rubocop
+  shoulda-matchers (~> 3.1)
+  simplecov
   spring
   will_paginate (~> 3.0.6)
 

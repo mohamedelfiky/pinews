@@ -15,3 +15,6 @@
 .idea/
 /public/assets
 .byebug_history
+
+# Ignoring simplecov output dir
+/coverage

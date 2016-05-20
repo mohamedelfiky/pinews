@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
     let(:user) { build(:user, role) }
 
     context 'when is a Guest' do
-      let(:role) { :guest }
+      let(:role) { nil }
 
       it { is_expected.to be_able_to(:read, build(:article)) }
       it { is_expected.to be_able_to(:read, build(:photo)) }
