@@ -1,4 +1,5 @@
 # Pinews 
+[![Code Climate](https://codeclimate.com/repos/573b675b279f651b1d008d58/badges/c8ff241bfc38cb5de907/gpa.svg)](https://codeclimate.com/repos/573b675b279f651b1d008d58/feed)
 ###### (Currently in Development )
 PiNews small app for users to pin his favorite news and share it to social media.
 
