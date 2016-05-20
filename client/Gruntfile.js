@@ -1,6 +1,15 @@
 // Generated on 2016-04-17 using generator-angular 0.15.1
 'use strict';
 
+// requires
+var jshint = require('jshint-stylish');
+var autoprefixer = require('autoprefixer-core');
+var gruntProxy = require('grunt-connect-proxy/lib/utils');
+var bowerConfig = require('./bower.json');
+var timeGrunt = require('time-grunt');
+var jitGrunt = require('jit-grunt');
+
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -8,13 +17,6 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-  // requires
-  var jshint = require('jshint-stylish');
-  var autoprefixer = require('autoprefixer-core');
-  var gruntProxy = require('grunt-connect-proxy/lib/utils');
-  var bowerConfig = require('./bower.json');
-  var timeGrunt = require('time-grunt');
-  var jitGrunt = require('jit-grunt');
 
   // Time how long tasks take. Can help when optimizing build times
   timeGrunt(grunt);
