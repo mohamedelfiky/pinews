@@ -1,6 +1,6 @@
 # Pinews 
-[![Code Climate](https://codeclimate.com/repos/573b675b279f651b1d008d58/badges/c8ff241bfc38cb5de907/gpa.svg)](https://codeclimate.com/repos/573b675b279f651b1d008d58/feed)
-[![Test Coverage](https://codeclimate.com/repos/573b675b279f651b1d008d58/badges/c8ff241bfc38cb5de907/coverage.svg)](https://codeclimate.com/repos/573b675b279f651b1d008d58/coverage)
+[![Test Coverage](https://codeclimate.com/github/mohamedelfiky/pinews/badges/coverage.svg)](https://codeclimate.com/github/mohamedelfiky/pinews/coverage)
+[![Code Climate](https://codeclimate.com/github/mohamedelfiky/pinews/badges/gpa.svg)](https://codeclimate.com/github/mohamedelfiky/pinews)
 ###### (Currently in Development )
 PiNews small app for users to pin his favorite news and share it to social media.
 
