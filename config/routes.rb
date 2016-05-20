@@ -12,7 +12,6 @@ Rails.application.routes.draw do
       end
     end
   end
-  root to: redirect('/api/v1/articles')
 
   match '*path', to: 'application#not_found', via: :all
 end
