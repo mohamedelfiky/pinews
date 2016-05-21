@@ -11,7 +11,7 @@ group :development do
   gem 'guard-rubocop'
 end
 
-gem 'mysql2'
+gem 'pg'
 gem 'devise'
 gem 'devise_token_auth'
 gem 'omniauth'
@@ -38,8 +38,6 @@ group :test, :development do
 end
 
 group :production do
-  # Use PostreSQL in production env
-  gem 'pg'
   # Heroku 12factor integration
   gem 'rails_12factor'
 end

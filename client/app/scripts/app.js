@@ -24,18 +24,15 @@
       'ui.materialize',
       'ngFileUpload',
       'ui.router',
-      'infinite-scroll'
+      'infinite-scroll',
+      'config'
     ])
-    .value('config', { API_BASE_URL: '/api/v1/' })
-    .config(function ($authProvider) {
+    .config(function ($authProvider, ENV) {
       $authProvider.configure({
-        apiUrl: 'http://localhost:9000/api/v1',
+        apiUrl: ENV.apiEndpoint,
         validateOnPageLoad: true,
         storage: 'cookies'
       });
-
-
     });
-
 
 }());

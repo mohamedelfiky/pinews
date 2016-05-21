@@ -11,10 +11,10 @@
   angular.module('pinewsApp')
     .factory('Pin', pinService);
 
-  pinService.$inject = ['$resource', 'config'];
+  pinService.$inject = ['$resource', 'ENV'];
 
-  function pinService($resource, config) {
-    return $resource(config.API_BASE_URL + 'articles/:articleId/pins/:id', null,
+  function pinService($resource, ENV) {
+    return $resource(ENV.API_BASE_URL + 'articles/:articleId/pins/:id', null,
       {
         'count': {method: 'GET'}
       });

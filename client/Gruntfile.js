@@ -33,10 +33,42 @@ module.exports = function (grunt) {
     app: bowerConfig.appPath || 'app',
     dist: '../public'
   };
+  grunt.loadNpmTasks('grunt-ng-constant');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
-
+    ngconstant: {
+      options: {
+        space: '  ',
+        wrap: '(function () { \n "use strict";\n\n {\%= __ngModule %} \n}());',
+        name: 'config'
+      },
+      // Environment targets
+      development: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'development',
+            apiEndpoint: 'http://localhost:9000/api/v1',
+            API_BASE_URL: '/api/v1/'
+          }
+        }
+      },
+      production: {
+        options: {
+          dest: '<%= yeoman.dist %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'production',
+            apiEndpoint: 'http://pinews-app.herokuapp.com/api/v1',
+            API_BASE_URL: '/api/v1/'
+          }
+        }
+      }
+    },
     // Project settings
     yeoman: appConfig,
 
@@ -87,6 +119,7 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
+      // development only
       proxies: [
         {
           context: '/api/v1/',
@@ -500,6 +533,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:development',
       'wiredep',
       'concurrent:server',
       'postcss:server',
@@ -526,6 +560,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:production',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
