@@ -9,9 +9,3 @@ development:
   database: pinews_development
   username:
   password:
-
-test:
-  <<: *default
-  database: pinews_test
-  username: 
-  password:

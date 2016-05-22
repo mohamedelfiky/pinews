@@ -37,15 +37,13 @@
     "phantomjs-prebuilt": "^2.1.7",
     "time-grunt": "^1.0.0",
     "angular-ui-router": "^0.2.18",
-    "load-grunt-tasks": "^3.5.0"
+    "load-grunt-tasks": "^3.5.0",
+    "grunt-ng-constant": "^2.0.1"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
     "test": "karma start test/karma.conf.js"
-  },
-  "devDependencies": {
-    "grunt-ng-constant": "^2.0.1"
   }
 }

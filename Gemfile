@@ -17,8 +17,10 @@ gem 'devise_token_auth'
 gem 'omniauth'
 gem 'cancancan', '~> 1.10'
 gem 'paperclip', '~> 5.0.0.beta1'
+gem 'puma'
 
 group :test do
+  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'factory_girl_rails', require: false
   # Cleane database in tests

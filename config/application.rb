@@ -31,7 +31,6 @@ module Pinews
                        controller_specs: false
     end
     config.serve_static_files = true
-    config.serve_static_assets = true
 
     config.middleware.insert_before 0, 'Rack::Cors' do
       allow do

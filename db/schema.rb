@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160512205934) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -29,7 +26,7 @@ ActiveRecord::Schema.define(version: 20160512205934) do
     t.datetime "image_updated_at"
   end
 
-  add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
+  add_index "articles", ["author_id"], name: "index_articles_on_author_id"
 
   create_table "photos", force: :cascade do |t|
     t.string   "title"
@@ -42,7 +39,7 @@ ActiveRecord::Schema.define(version: 20160512205934) do
     t.datetime "image_updated_at"
   end
 
-  add_index "photos", ["article_id"], name: "index_photos_on_article_id", using: :btree
+  add_index "photos", ["article_id"], name: "index_photos_on_article_id"
 
   create_table "pins", force: :cascade do |t|
     t.integer  "article_id"
@@ -51,8 +48,8 @@ ActiveRecord::Schema.define(version: 20160512205934) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "pins", ["article_id"], name: "index_pins_on_article_id", using: :btree
-  add_index "pins", ["user_id"], name: "index_pins_on_user_id", using: :btree
+  add_index "pins", ["article_id"], name: "index_pins_on_article_id"
+  add_index "pins", ["user_id"], name: "index_pins_on_user_id"
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -85,14 +82,9 @@ ActiveRecord::Schema.define(version: 20160512205934) do
     t.integer  "role_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
-  add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["role_id"], name: "index_users_on_role_id"
+  add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
 
-  add_foreign_key "articles", "users", column: "author_id"
-  add_foreign_key "photos", "articles"
-  add_foreign_key "pins", "articles"
-  add_foreign_key "pins", "users"
-  add_foreign_key "users", "roles"
 end
